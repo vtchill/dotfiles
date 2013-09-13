@@ -1,4 +1,2 @@
 dotfiles
 ========
-
-Configuration files
