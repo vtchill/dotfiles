@@ -1,0 +1,22 @@
+{
+	"color_scheme": "Packages/Dayle Rees Color Schemes/FreshCut.tmTheme",
+	"detect_indentation": false,
+	"file_exclude_patterns":
+	[
+		".tags",
+		".tags_sorted_by_file",
+		".gemtags"
+	],
+	"find_selected_text": true,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"soda_classic_tabs": true,
+	"tab_completion": false,
+	"tab_size": 2,
+	"theme": "Soda Dark.sublime-theme",
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": true,
+  "ensure_newline_at_eof_on_save": true
+}

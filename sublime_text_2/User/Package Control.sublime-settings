@@ -1,0 +1,31 @@
+{
+	"auto_upgrade_last_run": null,
+	"installed_packages":
+	[
+		"All Autocomplete",
+		"ApplySyntax",
+		"Base16 Color Schemes",
+		"BracketHighlighter",
+		"CTags",
+		"Dayle Rees Color Schemes",
+		"ERB Snippets",
+		"Git",
+		"GitGutter",
+		"GotoRecent",
+		"LESS",
+		"Package Control",
+		"Phix Color Scheme",
+		"Prefixr",
+		"RailsCasts Colour Scheme",
+		"RSpec",
+		"Sass",
+		"SideBarEnhancements",
+		"Slate",
+		"SublimeCodeIntel",
+		"SublimeLinter",
+		"SyncedSideBar",
+		"Tag",
+		"Theme - Soda",
+		"TrailingSpaces"
+	]
+}
