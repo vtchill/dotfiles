@@ -19,3 +19,6 @@ Thumbs.db
 
 # Ignore ctags file
 .tags
+
+# Ignore redis dump file
+*.rdb

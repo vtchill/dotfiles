@@ -1,10 +1,12 @@
 {
 	"apply_syntax_extensions":
 	[
-		"haml"
+		"py3",
+		"pyw"
 	],
 	"extensions":
 	[
-		"haml"
+		"py3",
+		"pyw"
 	]
 }

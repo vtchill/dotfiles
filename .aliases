@@ -32,14 +32,21 @@ else
 fi
 
 # editor aliases
-alias subl='/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl'
+alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
 alias v='/usr/local/bin/mvim'
+
+# Use MacVim's version of the Vim executable instead of the systems
+if [ -e /usr/local/bin/brew ]; then 
+  MACVIM_BASE=`brew --cellar macvim`
+  MACVIM_VERSION=`brew list --versions macvim --compact | awk '{print $(NF)}'`
+  alias vim='$MACVIM_BASE/$MACVIM_VERSION/MacVim.app/Contents/MacOS/vim'
+fi
 
 # git aliases
 alias gs='git status'
 alias ga='git add'
 alias gc='git commit'
-alias undopush="git push -f origin HEAD^:master"
+alias gp='git remote prune origin'
 
 # ruby/rails aliases
 alias be='bundle exec'
@@ -48,3 +55,6 @@ alias brake='bundle exec rake'
 # postgresql aliases
 # Usage: pg {start|stop|restart|reload|status}
 alias pg='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log'
+
+# slack aliases
+alias slack='nohup /Applications/Slack.app/Contents/MacOS/Slack &'

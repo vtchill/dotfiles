@@ -1,6 +1,8 @@
 {
-	"color_scheme": "Packages/Dayle Rees Color Schemes/FreshCut.tmTheme",
+	"color_scheme": "Packages/User/FreshCut (SL).tmTheme",
 	"detect_indentation": false,
+	"enable_tab_scrolling": false,
+	"ensure_newline_at_eof_on_save": true,
 	"file_exclude_patterns":
 	[
 		".tags",
@@ -8,15 +10,17 @@
 		".gemtags"
 	],
 	"find_selected_text": true,
+	"font_size": 15.0,
 	"ignored_packages":
 	[
-		"Vintage"
+		"Vintage",
+		"SideBarEnhancements"
 	],
+	"reveal-on-activate": false,
 	"soda_classic_tabs": true,
 	"tab_completion": false,
 	"tab_size": 2,
 	"theme": "Soda Dark.sublime-theme",
 	"translate_tabs_to_spaces": true,
-	"trim_trailing_white_space_on_save": true,
-  "ensure_newline_at_eof_on_save": true
+	"trim_trailing_white_space_on_save": true
 }

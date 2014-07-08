@@ -7,3 +7,104 @@ function md() {
 function f() {
     find . -name "$1"
 }
+
+function parse_git_branch() {
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+}
+
+function greb() {
+  timestamp="$(date +%Y%m%d%H%M%S)"
+  use_onto=""
+
+  # Parameter Checking
+  onto_branch="$1"
+  if [ -z "$onto_branch" ]; then
+    echo "Usage:"
+    echo "       git checkout <featurebranch_name>"
+    echo "       greb <mainlinebranch_name>"
+    echo ""
+    echo "example:"
+    echo "       $ git checkout my_bug_fix"
+    echo "       $ greb development"
+    return
+  fi
+
+  this_branch="$(parse_git_branch)"
+  if [ -z "$this_branch" ]; then
+    echo "ERROR: you are not currently in a git repository"
+    return
+  fi
+
+  if [ "$this_branch" = "$onto_branch" ]; then
+    echo "ERROR: branches must not be the same"
+    return
+  fi
+
+  if [ "$2" = "onto" ]; then
+    use_onto="true"
+  fi
+
+  # Main Function
+  commit_count=$(git reflog show "$this_branch" | grep 'commit: ' | wc -l | tr -d ' ')
+
+  # Ensure the new base branch is up to date
+  echo "Fetching all changes from remote..."
+  git fetch origin
+  if [ "$?" != "0" ]; then
+    echo "'git fetch origin' Unexpected error: $?"
+    return
+  fi
+
+  echo "Making sure '$onto_branch' is up to date..."
+  git checkout "$onto_branch"
+  if [ "$?" != "0" ]; then
+    echo "'git checkout \"$onto_branch\"' Unexpected error: $?"
+    return
+  fi
+
+  git merge --ff-only "origin/$onto_branch"
+  if [ "$?" != "0" ]; then
+    echo "Could not fast forward '$onto_branch', making a backup before pulling changes."
+
+    no_ff="true"
+
+    git checkout -b "${onto_branch}-$timestamp" &&
+      git branch -D "$onto_branch" &&
+      git checkout "$onto_branch"
+
+    if [ "$?" != "0" ]; then
+      echo "<Unexpected error: $?> while forcing '$onto_branch' to sync with origin"
+      return
+    fi
+  fi
+
+  # Ensure the current branch is up to date
+  echo "Making a backup of '$this_branch'"
+  git checkout "$this_branch" &&
+    git checkout -b "${this_branch}-$timestamp" &&
+    git checkout "$this_branch"
+
+  if [ "$?" != "0" ]; then
+    echo "<Unexpected error: $?> while backing up '$this_branch'"
+    return
+  fi
+
+  echo "Making sure '$this_branch' is up to date..."
+  git merge --ff-only "origin/$this_branch"
+  if [ "$?" != "0" ]; then
+    git rebase "origin/$this_branch"
+    if [ "$?" != "0" ]; then
+      echo "'git rebase \"origin/$this_branch\"' Unexpected error: $?"
+      return
+    fi
+  fi
+
+  # Do the rebase
+  if [ -n "$use_onto" ]; then
+    echo "Rebasing $commit_count commits from '$this_branch' onto '$onto_branch'"
+    git rebase "HEAD~$commit_count" --onto "$onto_branch"
+  else
+    echo "Rebasing '$this_branch' onto '$onto_branch'"
+    git rebase "$onto_branch"
+  fi
+}

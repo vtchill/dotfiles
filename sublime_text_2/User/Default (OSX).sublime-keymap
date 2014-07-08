@@ -1,5 +1,6 @@
 [
 {"keys": ["super+v"], "command": "paste_and_indent" },
 {"keys": ["super+shift+v"], "command": "paste"},
-{ "keys": ["super+shift+i"], "command": "reindent", "args": {"single_line": false} }
+{ "keys": ["super+shift+i"], "command": "reindent", "args": {"single_line": false} },
+{ "keys": ["ctrl+t"], "command": "side_bar_new_file2" }
 ]
